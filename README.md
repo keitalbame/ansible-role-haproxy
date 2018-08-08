@@ -54,8 +54,10 @@ Example playbook usage.
          - { name: "backend_2", address: "192.168.0.2:8080" }
      - name: "k8s"
        type: frontend
+       haproxy_frontend_redirect_https: true
        binds:
          - { host: "*", port: "80" }
+         - { host: "*", port: "443", priv_key: "example.com" }
        mode: http
        acls:
          - { name: "forward_k8s", rule: "hdr_end(host) -i k8s.example.com" }

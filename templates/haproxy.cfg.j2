@@ -112,6 +112,11 @@ frontend {{ service.name }}
 {% for option in service.options | default(haproxy_default_frontend_options) %}
   {{ option }}
 {% endfor %}
+{% for bind in service.binds %}
+{% if ( bind.priv_key is defined and (service.haproxy_frontend_redirect_https | default(haproxy_frontend_redirect_https)) ) %}
+  http-request redirect scheme https if !{ ssl_fc }
+{% endif %}
+{% endfor %}
 {% for condition in service.conditions | default([]) %}
   {{ condition.state }} if {{ condition.rule }}
 {% endfor %}
