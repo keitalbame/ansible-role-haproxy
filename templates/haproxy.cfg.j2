@@ -114,7 +114,7 @@ frontend {{ service.name }}
 {% endfor %}
 {% for bind in service.binds %}
 {% if ( bind.priv_key is defined and (service.haproxy_frontend_redirect_https | default(haproxy_frontend_redirect_https)) ) %}
-  http-request redirect scheme https if !{ ssl_fc }
+  {{ haproxy_frontend_redirect_https_param }}
 {% endif %}
 {% endfor %}
 {% for condition in service.conditions | default([]) %}

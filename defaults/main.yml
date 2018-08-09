@@ -53,6 +53,7 @@ haproxy_default_frontend_options:
   - "http-request set-header X-Forwarded-Port %[dst_port]"
   - "http-request set-header X-Forwarded-Proto https if { ssl_fc }"
 haproxy_frontend_redirect_https: false
+haproxy_frontend_redirect_https_param: http-request redirect scheme https if !{ ssl_fc }
 
 haproxy_default_backend_balance: roundrobin
 haproxy_default_backend_options: []
