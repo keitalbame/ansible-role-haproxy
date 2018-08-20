@@ -9,10 +9,10 @@
   retries: 3
   when: not ansible_check_mode and ansible_facts.services is defined
 
-- name: Restart firewalld
+- name: Reload firewalld
   systemd:
     name: "firewalld"
-    state: "restarted"
+    state: "reloaded"
     enabled: "yes"
   retries: 3
   when: not ansible_check_mode and ansible_facts.services['firewalld.service'].state == 'running'
